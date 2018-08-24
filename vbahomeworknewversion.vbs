@@ -1,30 +1,39 @@
 Sub stock():
 
+Application.ScreenUpdating = False 
+
+Application.EnableEvents = False
+
+Application.Calculation = xlCalculationManual
+
+ActiveSheet.DisplayPageBreaks = False
+
 For each ws in Worksheets
 
     Dim stockcount as integer
-    Dim totalvolumn as LongLong 
+    Dim totalvolumn as LongLong
     Dim newstockcount as LongLong
     Dim increase as double 
     Dim decrease as double 
-    Dim volume as LongLong 
+    Dim volume as LongLong
 
     stockcount = 1
     totalvolumn = 0
     
 
     LastRow = ws.Cells(Rows.Count,1).End(xlUp).Row
-    ws.Range("I1").Value = "Ticker"
-    ws.Range("L1").Value = "Total Stock Volume"
-    ws.Range("J1").Value = "Yearly Change"
-    ws.Range("K1").Value = "Percentage Change"
-    ws.Range("X1").Value = "Opening Price"
-    ws.Range("Y1").Value = "Closing Price"
-    ws.Range("O1").Value = "Ticker"
-    ws.Range("P1").Value = "Value"
-    ws.Range("N2").Value = "Greatest % Increase"
-    ws.Range("N3").Value = "Greatest % Decrease"
-    ws.Range("N4").Value = "Greatest Total Volume"
+    
+    Range("I1").Value = "Ticker"
+    Range("L1").Value = "Total Stock Volume"
+    Range("J1").Value = "Yearly Change"
+    Range("K1").Value = "Percentage Change"
+    Range("X1").Value = "Opening Price"
+    Range("Y1").Value = "Closing Price"
+    Range("O1").Value = "Ticker"
+    Range("P1").Value = "Value"
+    Range("N2").Value = "Greatest % Increase"
+    Range("N3").Value = "Greatest % Decrease"
+    Range("N4").Value = "Greatest Total Volume"
 
 
         for i = 2 to LastRow 
@@ -51,11 +60,11 @@ For each ws in Worksheets
             ws.Range("K"&newstockcount).Value= Round((ws.Range("J"&newstockcount).Value/ws.Range("X"&newstockcount).Value),2)
             ws.Range("K"&newstockcount).Style = "Percent"
 
-                If ws.Range("J"&newstockcount).Value > 0 Then 
-                ws.Range("J"&newstockcount).Interior.ColorIndex = 4
-                Else
-                ws.Range("J"&newstockcount).Interior.ColorIndex = 3
-                End if 
+            If ws.Range("J"&newstockcount).Value > 0 Then 
+            ws.Range("J"&newstockcount).Interior.ColorIndex = 4
+            Else
+            ws.Range("J"&newstockcount).Interior.ColorIndex = 3
+            End if 
 
         Next i 
 
@@ -77,6 +86,14 @@ For each ws in Worksheets
 
 
 Next ws
+
+Application.ScreenUpdating = True
+
+Application.EnableEvents = True
+
+Application.Calculation = xlCalculationAutomatic
+
+ActiveSheet.DisplayPageBreaks = True
 
 End Sub 
 
